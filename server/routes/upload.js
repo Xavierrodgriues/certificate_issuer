@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const xlsx = require('xlsx');
+const moment = require('moment');
 const Student = require('../models/Student');
 
 const router = express.Router();
@@ -18,6 +19,14 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Function to convert Excel serial date to JavaScript Date object
+function excelSerialDateToJSDate(serial) {
+  // Excel date system starts at 1900-01-01 and erroneously includes 1900-02-29
+  const excelEpoch = new Date(1899, 11, 30); // This adjusts for Excel's leap year bug
+  const jsDate = new Date(excelEpoch.getTime() + serial * 24 * 60 * 60 * 1000);
+  return jsDate;
+}
+
 // Route to handle file upload
 router.post('/upload', upload.single('file'), async (req, res) => {
   if (!req.file) {
@@ -32,19 +41,28 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
     // Save each entry to the database
     for (let data of sheetData) {
+      let startDate = excelSerialDateToJSDate(data['Start Date']); // Convert Excel serial date to JS date
+      let endDate = excelSerialDateToJSDate(data['End Date']); // Convert Excel serial date to JS date
+
+      // Check if conversion was successful
+      if (isNaN(startDate) || isNaN(endDate)) {
+        throw new Error(`Invalid date format for entry: ${JSON.stringify(data)}`);
+      }
+
       const student = new Student({
         certificateId: data['Certificate ID'],
         studentName: data['Student Name'],
         internshipDomain: data['Internship Domain'],
-        startDate: new Date(data['Start Date']),
-        endDate: new Date(data['End Date']),
+        startDate: startDate,
+        endDate: endDate,
       });
       await student.save();
     }
 
     res.status(200).json({ message: 'File uploaded and data saved successfully' });
   } catch (error) {
-    console.error(error);
+    console.error('Error processing file:', error.message);
+    console.error(error.stack);
     res.status(500).json({ message: 'Error processing file' });
   }
 });
