@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useNavigate } from 'react-router-dom';
 
 const AdminPanel = () => {
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
   const [students, setStudents] = useState([]);
-  const navigate = useNavigate(); // Initialize navigate for redirection
+  const navigate = useNavigate();
 
   // Fetch data from the database when the component mounts
   useEffect(() => {
@@ -53,7 +53,7 @@ const AdminPanel = () => {
   };
 
   const handleLogout = () => {
-    // Here you can add any logout logic like clearing tokens, etc.
+    localStorage.removeItem('jwtToken');
     navigate('/'); // Redirect to the home page
   };
 
