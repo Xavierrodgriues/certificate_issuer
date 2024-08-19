@@ -2,7 +2,6 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const xlsx = require('xlsx');
-const moment = require('moment');
 const Student = require('../models/Student');
 
 const router = express.Router();
@@ -19,7 +18,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Function to convert Excel serial date to JavaScript Date object
 function excelSerialDateToJSDate(serial) {
   // Excel date system starts at 1900-01-01 and erroneously includes 1900-02-29
   const excelEpoch = new Date(1899, 11, 30); // This adjusts for Excel's leap year bug
@@ -51,7 +49,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
       const student = new Student({
         certificateId: data['Certificate ID'],
-        studentName: data['Student Name'],
+        studentName: data['Name'],
         internshipDomain: data['Internship Domain'],
         startDate: startDate,
         endDate: endDate,
@@ -61,8 +59,7 @@ router.post('/upload', upload.single('file'), async (req, res) => {
 
     res.status(200).json({ message: 'File uploaded and data saved successfully' });
   } catch (error) {
-    console.error('Error processing file:', error.message);
-    console.error(error.stack);
+    console.error(error);
     res.status(500).json({ message: 'Error processing file' });
   }
 });
