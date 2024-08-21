@@ -24,10 +24,10 @@ const Home = () => {
         <div className="flex justify-center space-x-4">
           {!isAuthenticated ? (
             <>
-              <Link to="/register" className="bg-green-500 text-white p-2 rounded">
+              <Link to="/register" className="bg-purple-900 text-white p-2 rounded">
                 Register
               </Link>
-              <Link to="/login" className="bg-yellow-500 text-white p-2 rounded">
+              <Link to="/login" className="bg-purple-900 text-white p-2 rounded">
                 Login
               </Link>
             </>
