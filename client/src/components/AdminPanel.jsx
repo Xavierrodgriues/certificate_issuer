@@ -53,7 +53,7 @@ const AdminPanel = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('token');
     navigate('/'); // Redirect to the home page
   };
 
