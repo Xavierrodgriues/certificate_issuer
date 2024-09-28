@@ -40,7 +40,8 @@ const Home = () => {
       </div>
 
       {/* Spline 3D Model */}
-      <Spline scene="https://prod.spline.design/3Ai7AoV5sTAwic5J/scene.splinecode" />
+      <Spline scene="https://prod.spline.design/poX3RvMKMzXygXow/scene.splinecode" />
+
 
     </div>
   );
