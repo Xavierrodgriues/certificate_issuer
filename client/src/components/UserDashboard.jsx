@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import { useNavigate } from 'react-router-dom';
@@ -98,9 +98,9 @@ const UserDashboard = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 bg-zinc-300">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">User Dashboard</h1>
+        <h1 className="text-2xl font-bold text-black">User Dashboard</h1>
         <button
           onClick={handleLogout}
           className="bg-red-500 text-white py-2 px-4 rounded"
@@ -119,7 +119,7 @@ const UserDashboard = () => {
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-500 text-white py-2 px-4 rounded mt-2"
+          className="bg-black text-white py-2 px-4 rounded mt-2"
         >
           Search
         </button>

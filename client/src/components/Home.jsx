@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Spline from '@splinetool/react-spline';
 
@@ -40,10 +40,8 @@ const Home = () => {
       </div>
 
       {/* Spline 3D Model */}
-      <Spline
-        scene="https://prod.spline.design/poX3RvMKMzXygXow/scene.splinecode"
-        className="absolute top-0 left-0 h-full w-full"
-      />
+      <Spline scene="https://prod.spline.design/3Ai7AoV5sTAwic5J/scene.splinecode" />
+
     </div>
   );
 };
